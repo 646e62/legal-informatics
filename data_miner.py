@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-V 0.1
+V 0.2
 Minimally functional web scraper that extracts all of the cases cited in a
 reported decision on CanLII.
 
@@ -18,30 +18,30 @@ import urllib.request
 import urllib.parse
 import urllib.error
 import json
+from url_tools import verify_url
 
-# Pulls a URL from a string.
-# The while-try-except keeps the input honest by attempting to assign the
-# HTTPrequest to a valid URL, and by demanding a valid URL when it receives
-# bad input
 
+# verify_url() verifies and formats valid input
 webpage = input("Enter URL: ")
+
 while True:
     try:
-        webpage_data = urllib.request.urlopen(webpage)
+        url_data = verify_url(webpage)[1]
         break
     except:
         webpage = input("Invalid URL: ")
 
-# Expands the URL when a shortened version is supplied
-# The webpage input string is replaced with the expanded URL
-if len(webpage) < 25:
-    webpage = webpage_data.geturl()
-
 # Extracts the databaseId and caseID from the long form URL
-url_data = webpage[8:].split("/")
-language = url_data[1]
-database_id = url_data[3]
-case_id = url_data[6]
+
+hostname = url_data[1]
+language = url_data[3]
+database_id = url_data[5]
+case_id = url_data[8]
+
+print(verify_url(webpage))
+
+# webpage_data might be useless
+
 
 # Corrects database_id values to meet the API's standards
 # Currently only accounts for SCC decisions, because this is the only outlier
@@ -74,3 +74,6 @@ count = 0
 for case in case_list:
     count += 1
     print(f"({count}) {case}")
+
+print(language)
+print(webpage.split("/"))
