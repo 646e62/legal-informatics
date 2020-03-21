@@ -1,9 +1,15 @@
+"""Library of URL tools for use with the CanLII API
+
+A small collection of functions used in conjunction with the CanLII API and the
+data mining & scraping software being developed for it.
+ """
+
 import urllib.request
 import urllib.parse
 import urllib.error
 
 
-def verify_url(url):
+def verify_canlii_url(url):
     """Verifies that the supplied input is a valid CanLII URL. Returns a """
 
     # urllib.request.urlopen() verifies the input is a valid URL
@@ -11,14 +17,39 @@ def verify_url(url):
     try:
         url = urllib.request.urlopen(url).geturl()
     except:
+        print("1")
         return None
 
     url_data = url.split("/")
 
-    # Check list length & verify the hostname is www.canlii.org
+    # Double (weak) URL verification
     if len(url_data) != 10:
+        print("2")
         return None
     if url_data[2] != "www.canlii.org":
+        print("3")
         return None
 
     return url, url_data
+
+
+def process_canlii_url(url):
+    """Processes a valid CanLII URL and returns a dictionary."""
+    # Correct database_id values to meet the API standards
+    if url[5] == "scc":
+        url[5] == "csc-scc"
+
+    # Double (weak) URL verification
+    if len(url) == 10 and url[2] == "www.canlii.org":
+        return {"protocol": url[0][:-1],
+                "hostname": url[2],
+                "language": url[3],
+                "jurisdiction": url[4],
+                "database_id": url[5],
+                "page_type": url[6],
+                "year": url[7],
+                "case_id": url[8],
+                "file_name": url[9],
+                }
+    else:
+        return None

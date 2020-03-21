@@ -14,11 +14,10 @@ not pick up cases that are not indexed on CanLII, so several results will be
 missing
 """
 
-import urllib.request
-import urllib.parse
-import urllib.error
+import urllib
 import json
-from url_tools import verify_url
+from url_tools import verify_canlii_url
+from url_tools import process_canlii_url
 
 
 # verify_url() verifies and formats valid input
@@ -26,41 +25,23 @@ webpage = input("Enter URL: ")
 
 while True:
     try:
-        url_data = verify_url(webpage)[1]
+        url = verify_canlii_url(webpage)[1]
         break
     except:
         webpage = input("Invalid URL: ")
 
-# Extracts the databaseId and caseID from the long form URL
+url_dict = process_canlii_url(url)
 
-hostname = url_data[1]
-language = url_data[3]
-database_id = url_data[5]
-case_id = url_data[8]
-
-print(verify_url(webpage))
-
-# webpage_data might be useless
-
-
-# Corrects database_id values to meet the API's standards
-# Currently only accounts for SCC decisions, because this is the only outlier
-# I've noticed so far
-if database_id == "scc":
-    database_id = "csc-scc"
-
-# Imports the CanLII API key from a text file, refines the data and makes it
-# available for the API call
-# Needs to be secured/encypted before the program goes live
+# Imports the CanLII API key from a text file
 with open("key.txt") as api_key:
     key = api_key.readlines()[0].strip()
 
 # Assigns the correctly formatted API call string to citation_api_call
 citation_api_call = (
     "https://api.canlii.org/v1/caseCitator/en/"
-    f"{database_id}/{case_id}/citedCases?api_key={key}")
+    f"{url_dict['database_id']}/{url_dict['case_id']}/citedCases?api_key={key}")
 
-# Requests, reads, decodes, and returns the JSON file as json_file
+# Requests, reads/decodes, and returns the JSON file as the json_file dictionary
 handle = urllib.request.urlopen(citation_api_call)
 data = handle.read().decode()
 json_file = json.loads(data)
@@ -74,6 +55,3 @@ count = 0
 for case in case_list:
     count += 1
     print(f"({count}) {case}")
-
-print(language)
-print(webpage.split("/"))
