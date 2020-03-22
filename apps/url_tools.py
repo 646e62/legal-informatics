@@ -56,11 +56,27 @@ def process_canlii_url(url):
     else:
         return None
 
+    
 def download_website(url):
     handle = urllib.request.urlopen(url)
     data = handle.read().decode()
 
     return data
+
+
+def input_url():
+    webpage = input("Enter URL: ")
+
+    while True:
+        try:
+            url = verify_canlii_url(webpage)[0]
+            url_data = verify_canlii_url(webpage)[1]
+            break
+        except:
+            webpage = input("Enter URL: ")
+
+    return url, url_data
+
 
 # def url_constructor(case_list):
 
