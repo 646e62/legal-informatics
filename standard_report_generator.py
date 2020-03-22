@@ -14,10 +14,10 @@ Generates the standard report, which includes the following elements:
 import urllib
 import json
 
-from url_tools import *
-from json_tools import *
-from api_call_tools import *
-from api_key import *
+from apps.url_tools import *
+from apps.json_tools import *
+from apps.api_call_tools import *
+from apps.api_key import *
 
 # verify_url() verifies and formats valid input
 webpage = input("Enter URL: ")
@@ -30,10 +30,11 @@ while True:
     except:
         webpage = input("Invalid URL: ")
 
-case_list = cited_cases(url, process_canlii_url(url_data))
+case_list = cited_cases(url, process_canlii_url(url_data))[0]
 
 # Formats the cases in an enumerated list
 print("\n=============\nJurisprudence\n=============\n")
+
 
 count = 0
 for case in case_list:
