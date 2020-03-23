@@ -102,9 +102,9 @@ def url_constructor_case(case):
     court = case['databaseId']
     if court == "csc-scc":
         court = "scc"
-    jurisdiction = court[:2]
 
-    if jurisdiction == "sc":
+    jurisdiction = court[:2]
+    if jurisdiction == "sc" or jurisdiction == "fc":
         jurisdiction = "ca"
 
     year = style_of_cause[:4]

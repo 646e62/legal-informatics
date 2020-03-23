@@ -23,20 +23,24 @@ def cited_cases(url, url_data):
     # Formats the styles of cause to McGill 7E standard
     # Hosted cases
     hosted_cases = []
+    canlii_url_list = []
     case_dictionary = generate_json(api_url)['citedCases']
     for case in case_dictionary:
 
         style_of_cause = f"{case['title'].replace('.', '')}, {case['citation']}"
         case_url = url_constructor_case(case)
-        hosted_cases.append(style_of_cause + "\n\t" + case_url)
+        hosted_cases.append((style_of_cause, case_url))
 
 
     # Unhosted cases
-    unhosted_cases = cases_cited_unhosted(url)
+    unhosted_cases = cited_cases_unhosted(url)
 
     return hosted_cases, unhosted_cases
 
-def cases_cited_unhosted(url):
+def cited_cases_unhosted(url):
+    """Scrapes a valid CanLII decision page for cited cases not available on
+    CanLII
+    """
 
     html = requests.get(url)
     data = BeautifulSoup(html.content, 'html.parser')
@@ -55,3 +59,7 @@ def cases_cited_unhosted(url):
             )
 
     return unhosted_cases
+
+def metadata_call_case():
+    
+    return valueofsomesort

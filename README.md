@@ -1,7 +1,14 @@
 # canlii_data_miner
-Generates a report with
+Generates a report of all of the decisions cited by a decision hosted on
+CanLII. Accepts a valid CanLII URL as input.
+
+## V 0.3.1
+* Federal jurisdiction code now populates properly
+* Removed "Reported" header from the standard report
+* "Unreported" header only prints when applicable
 
 ## TODO
-* Separate API calls from the "main" program
-* Convert data_miner.py to a program that generates reports
-  * Report generator should rely heavily on function calls
+* Cache results "offline" for faster/future results
+* Replace urllib (& json) with requests
+* Design and implement a Decision class
+* Write a metadata API call
