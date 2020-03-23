@@ -15,7 +15,7 @@ def verify_canlii_url(url):
     # urllib.request.urlopen() verifies the input is a valid URL
     # geturl() expands shortened URLs
     try:
-        
+
         url = urllib.request.urlopen(url).geturl()
     except:
         print(f"Error: cannot reach {url}")
@@ -34,13 +34,21 @@ def verify_canlii_url(url):
     return url, url_data
 
 
+def correct_database_id(database_id):
+    """Corrects database_id values to meet the API standard"""
+
+    if database_id == "scc":
+        database_id = "csc-scc"
+
+    return database_id
+
+
 def process_canlii_url(url):
     """Processes a valid CanLII URL and returns a dictionary."""
-    # Correct database_id values to meet the API standards
 
-    if url[5] == "scc":
-        url[5] = "csc-scc"
-    
+    # Correct database_id values to meet the API standards
+    url[5] = correct_database_id(url[5])
+
     # Double (weak) URL verification
     if len(url) == 10 and url[2] == "www.canlii.org":
         return {"protocol": url[0][:-1],
@@ -56,8 +64,12 @@ def process_canlii_url(url):
     else:
         return None
 
-    
+
 def download_website(url):
+    """Requests, opens, reads, and decodes a website. Returns the result as
+    a string
+    Using the requests module should eliminate the need for this function
+"""
     handle = urllib.request.urlopen(url)
     data = handle.read().decode()
 
@@ -65,6 +77,7 @@ def download_website(url):
 
 
 def input_url():
+    """Obtains a URL for verification and processing using user input"""
     webpage = input("Enter URL: ")
 
     while True:
@@ -78,6 +91,25 @@ def input_url():
     return url, url_data
 
 
-# def url_constructor(case_list):
+def url_constructor_case(case):
+    """Builds URLs from data"""
 
-#    return url_list
+    language_dict = case['caseId']
+    for key, value in language_dict.items():
+        language = key
+        style_of_cause = value
+
+    court = case['databaseId']
+    if court == "csc-scc":
+        court = "scc"
+    jurisdiction = court[:2]
+
+    if jurisdiction == "sc":
+        jurisdiction = "ca"
+
+    year = style_of_cause[:4]
+    url = ( "<https://www.canlii.org/"
+            f"{language}/{jurisdiction}/{court}/doc/"
+            f"{year}/{style_of_cause}/{style_of_cause}.html>")
+
+    return url

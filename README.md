@@ -1,4 +1,5 @@
 # canlii_data_miner
+Generates a report with
 
 ## TODO
 * Separate API calls from the "main" program

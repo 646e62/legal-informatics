@@ -10,23 +10,28 @@ Generates the standard report, which includes the following elements:
 * Cases cited
 * Metadata
 """
-
-import urllib
-import json
-
 from apps.url_tools import *
-from apps.json_tools import *
 from apps.api_call_tools import *
-from apps.api_key import *
 
+
+# Requests a URL from user input
 url = input_url()
+
+# Cals cited_cases() to produce the cited cases lists
 case_list = cited_cases(url[0], process_canlii_url(url[1]))
 
 # Formats the cases in an enumerated list
-print("\n=============\nJurisprudence\n=============\n")
-
+print("Jurisprudence\n=============")
+print("\nHosted cases\n------------")
 
 count = 0
 for case in case_list[0]:
+    count += 1
+    print(f"({count})\t{case}")
+
+print("\nNot hosted on CanLII\n--------------------")
+    
+count = 0
+for case in case_list[1]:
     count += 1
     print(f"({count})\t{case}")
