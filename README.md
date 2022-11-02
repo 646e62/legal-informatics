@@ -1,6 +1,5 @@
-# canlii_data_miner
-Generates a report of all of the decisions cited by a decision hosted on
-CanLII. Accepts a valid CanLII URL as input.
+# headnote_
+Extracts information from written decisions in Canadian criminal cases. Currently, the tools generate a report of all of the decisions cited by a decision hosted on CanLII. 
 
 ## V 0.3.1
 * Federal jurisdiction code now populates properly
@@ -8,7 +7,14 @@ CanLII. Accepts a valid CanLII URL as input.
 * "Unreported" header only prints when applicable
 
 ## TODO
-* Cache results "offline" for faster/future results
-* Replace urllib (& json) with requests
+
+### Functionality
+* Retrieve and cache full MHTML decisions for faster/future results
 * Design and implement a Decision class
-* Write a metadata API call
+* Retrieve metadata through the CanLII API
+
+### Refactoring
+* Replace urllib (& json) with requests
+
+### UX
+* Package with FastAPI
