@@ -10,9 +10,10 @@ the decision
 """
 
 class Decision:
+    '''
+    Decision class for storing and manipulating case data "offline"
+    '''
     def __init__(self, decision_info, url, cited_cases):
         self.decision_info = decision_info
         self.url = url
         self.cited_cases = cited_cases
-
-        pass

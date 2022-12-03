@@ -18,12 +18,12 @@ import urllib
 import json
 import sys
 
-from url_tools import *
-from json_tools import *
-from api_call_tools import *
+from apps.processing_.url_tools import *
+from apps.processing_.json_tools import *
+from apps.processing_.api_call_tools import *
 
 
-def cited_cases(database_id, case_id):
+def case_citation_api(database_id, case_id):
     citation_api_call = (
         "https://api.canlii.org/v1/caseCitator/en/"
         f"{database_id}/{case_id}/citedCases?api_key={key}")
@@ -51,7 +51,7 @@ except FileNotFoundError:
     sys.exit()
 
 url_dict = process_canlii_url(url)
-api_call = cited_cases(url_dict['database_id'], url_dict['case_id'])
+api_call = case_citation_api(url_dict['database_id'], url_dict['case_id'])
 
 # Requests, reads/decodes, and returns the JSON file as the json_file dictionary
 handle = urllib.request.urlopen(api_call)

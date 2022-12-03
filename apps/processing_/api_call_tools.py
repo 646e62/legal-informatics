@@ -1,10 +1,14 @@
+'''
+Tools to gather case information via the CanLII API.
+'''
+
 # API call tools
 import requests
 from bs4 import BeautifulSoup
 
-from apps.api_key import *
-from apps.url_tools import *
-from apps.json_tools import *
+from api_key import generate_key
+from url_tools import *
+from json_tools import *
 
 
 def cited_cases(url, url_data):
@@ -23,7 +27,6 @@ def cited_cases(url, url_data):
     # Formats the styles of cause to McGill 7E standard
     # Hosted cases
     hosted_cases = []
-    canlii_url_list = []
     case_dictionary = generate_json(api_url)['citedCases']
     for case in case_dictionary:
 
@@ -59,7 +62,3 @@ def cited_cases_unhosted(url):
             )
 
     return unhosted_cases
-
-def metadata_call_case():
-    
-    return valueofsomesort
