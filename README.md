@@ -1,4 +1,4 @@
-# headnote_
+# informatics
 
 Extracts information from written decisions in Canadian criminal cases.
 
