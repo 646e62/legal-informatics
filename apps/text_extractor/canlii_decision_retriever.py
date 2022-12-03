@@ -1,14 +1,13 @@
-import requests
-import urllib.parse
 import os
+import requests
 
 
 # Resolve a full URL from a shortened URL
-def resolve_url(short_url):
+def resolve_url(short_url: str) -> str:
     ''' 
     Get the full URL from the shortened URL
     '''
-    response = requests.get(short_url)
+    response = requests.get(short_url, timeout=5)
     return response.url
 
 
@@ -40,7 +39,7 @@ def split_url(url: str)->str:
 
 # Download the decision to a local folder matching the URL
 def download_decision(url):
-    '''
+    ''' 
     Downloads a decision from CanLII to a local folder matching the URL. 
     '''
     # Creates the file path
