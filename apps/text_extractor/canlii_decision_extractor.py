@@ -20,9 +20,8 @@ def read_html_file(filename: str)->BeautifulSoup:
     '''
     Reads an HTML file and returns a BeautifulSoup object.
     '''
-    
-    with open(filename, 'r') as f:
-        soup = BeautifulSoup(f, 'html.parser')
+    with open(filename, 'r', encoding="utf-8") as file:
+        soup: BeautifulSoup = BeautifulSoup(file, 'html.parser')
     return soup
 
 
@@ -33,7 +32,6 @@ def extract_decision_text(paragraphs: list)->list:
     is contained in the <div class="paragWrapper"> tags. This function extracts
     the text from these tags and appends it to a list.
     '''
-
     numbered_paragraphs = identify_numbered_paragraphs(paragraphs)
 
     decision_text: list = []
@@ -50,7 +48,6 @@ def generate_paragraphs(soup: BeautifulSoup)->list:
     <p> tag (via BS4) to identify the paragraphs. It then extracts the text from
     these tags and appends it to a list.
     '''
-
     paragraphs: list = []
 
     for paragraph in soup.find_all('p'):
@@ -63,7 +60,6 @@ def remove_non_alpha(item: str)->str:
     '''
     Removes non-alpha characters from a string. This function is used to remove
     '''
-    
     return item.isalpha()
 
 # Remove a string from a list if the string is a number
@@ -72,7 +68,6 @@ def remove_numbers(item: str)->str:
     Removes numbers from a string. This function is used to remove the paragraph
     numbers from the numbered paragraphs.
     '''
-
     return item.isnumeric()
 
 # Identifies numbered paragraphs
@@ -80,11 +75,10 @@ def identify_numbered_paragraphs(paragraphs: list[str])->list[str]:
     '''
     Numbered paragraphs are contained in the <div class="paragWrapper"> tags.
     But some paragraphs are followed by block quotes or enumerated lists that
-    aren't contained in the <div class="paragWrapper"> tag. This function 
+    aren't contained in the <div class="paragWrapper"> tag. This function
     appends these outlier paragraphs to the text contained in <div class=
     "paragWrapper"> tag immediately preceding.
     '''
-
     numbered_paragraphs: list = []
 
     for paragraph in paragraphs:
