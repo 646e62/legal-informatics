@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """Generates a standard report"""
-from apps.url_tools import *
-from apps.api_call_tools import *
+from processing_.url_tools import *
+from processing_.api_call_tools import *
 
 
 # Requests a URL from user input

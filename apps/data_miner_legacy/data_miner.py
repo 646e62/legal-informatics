@@ -18,9 +18,9 @@ import urllib
 import json
 import sys
 
-from apps.processing_.url_tools import *
-from apps.processing_.json_tools import *
-from apps.processing_.api_call_tools import *
+from processing_.url_tools import *
+from processing_.json_tools import *
+from processing_.api_call_tools import *
 
 
 def case_citation_api(database_id, case_id):
