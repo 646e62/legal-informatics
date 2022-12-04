@@ -1,4 +1,4 @@
-# informatics
+# legal-informatics
 
 Extracts information from written decisions in Canadian criminal cases.
 
