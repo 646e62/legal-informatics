@@ -3,12 +3,18 @@ Tools to gather case information via the CanLII API.
 '''
 
 # API call tools
+import json
 import requests
 from bs4 import BeautifulSoup
 
 from api_key import generate_key
 from url_tools import *
-from json_tools import *
+
+def generate_json(api_url: str) -> dict:
+    '''
+    Generates a JSON object from an API call.
+    '''
+    return json.loads(download_website(api_url))
 
 
 def cited_cases(url, url_data):

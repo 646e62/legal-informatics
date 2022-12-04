@@ -69,7 +69,7 @@ def download_website(url):
     """Requests, opens, reads, and decodes a website. Returns the result as
     a string
     Using the requests module should eliminate the need for this function
-"""
+    """
     handle = urllib.request.urlopen(url)
     data = handle.read().decode()
 
