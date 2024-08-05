@@ -8,7 +8,7 @@ This project consists of a collection of functions used to process legal informa
 
 Version 0.1.0 of this project takes over at least two previous attempts to develop a similar toolset. Code from these projects is currently stored in a .legacy folder, and some of it will be incorporated into the new project. Two of the tools — Citator and Headnote — were eventually developed under separate repos (as [citation-generator] and [case-brief](), respectively) as a part of my work on the PDM program in 2022/23, and the rationale for this project fell by the wayside. 
 
-But since the last work on this repo a few years ago, I developed a tool ([legal-citation-parser](https://github.com/646e62/legal-citation-parser)) to generate information from a CanLII citation, in tandem with the publicly available CanLII API. Several potential informatic insights became apparent when using it, so I've decided to revisit this project and refocus its scope.
+But since the last work on this repo a few years ago, I developed a tool ([legal-citation-parser](https://github.com/646e62/legal-citation-parser)) to generate information from a CanLII citation, in tandem with the publicly available CanLII API. Several potential informatic insights became apparent when using it, so I've decided to revisit this project and refocus its scope. The legal-citation-parser solves one half of the CanLII data processing problem, while the legacy code addresses (without solving) the other. Eventually, this project will combine the two to create a comprehensive toolset for processing CanLII data.
 
 The first version of this project introduces two very basic analytic functions: a tool that counts jurisdictions and court levels, and a tool that organizes citations by year. Although these are mostly proof of concept functions t, the data from each can be used to generate more complex insights. For example, the jurisdiction and court level data can be used to generate a report that shows how different courts read and cite one another, while annual data can be used to generate a report that shows a case's popularity over time.
 
@@ -20,56 +20,17 @@ This version migrates the code from the "master" branch to "main", as I'm not su
 * New project description and updates to the README
 * No gods, no master branch — replaced "master" with "main" and deleted the former
 * Removed and recreaded "dev"
-* 
+* Introduced the first basic analytic functions
 
-## Legacy code
+## Installation
 
-## Version history
+An early update will make this package installable through pip, and later uplaodable to PyPi. For now, you can clone the repo and run the functions as raw code in iPython or through the included Jupyter notebook.
 
-### V 0.4.0
+```bash
+git clone https://github.com/646e62/legal-informatics
+```
 
-* Renamed the repo "informatics" to reflect the project's broader scope
-* Identified three separate projects:
-  * CanLII data processor
-  * Citator
-  * Headnote
-* Added a wiki
+## Usage
 
-#### CanLII data processor
+This project uses the CanLII API. API access is available upon request, and you can find more information on the [CanLII API repo](https://github.com/canlii/API_documentation/blob/master/EN.md).
 
-* Moved all of the old data processing tools to a legacy folder
-  * Added the lone function from json_tools.py to api_call_tools.py and deleted
-  the redundant file
-* Future versions will be built around the new canlii_decision_* toolset
-* Legacy programs have a few CanLII API-specific functions that should be 
-useful for other programs going forward
-
-#### Citator
-
-* Created SK Decision, Legislation, and SecondarySources classes based on the
-[2015 Citation Guide](https://sasklawcourts.ca/wp-contentuploads/2020/09/Citation_Guide_2015_revisions.pdf)
-* Started to codify the SK Citation Guide rule set
-
-### V 0.3.2
-
-* Download and cache documents from CanLII through the
-canlii_decision_retriever script using the requests library
-* Extract text and itemize paragaphs using the canlii_decision_extractor script
-
-### V 0.3.1
-
-* Federal jurisdiction code now populates properly
-* Removed "Reported" header from the standard report
-* "Unreported" header only prints when applicable
-
-## TODO
-
-### Functionality
-
-* Design and implement a Decision class
-* Retrieve metadata through the CanLII API
-  * The legacy tools should be able to accomplish this
-
-### UX
-
-* Make some design decisions
