@@ -1,6 +1,10 @@
 # legal-informatics
 
-Extracts information from written decisions in Canadian criminal cases.
+Extracts information from court decisions hosted on [CanLII](https://www.canlii.org/).
+
+## Overview
+
+This project consists of a collection of functions used to process legal information. CanLII is a free legal database that hosts court decisions and legislation from across Canada. 
 
 ## Version history
 
