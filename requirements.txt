@@ -1,1 +1,3 @@
 legal-citation-parser
+collections
+matplotlib
